@@ -9,7 +9,7 @@ export default function ViewToggle() {
     <div className="mb-8 flex items-center justify-center gap-2">
       <button
         onClick={() => setViewMode("pagination")}
-        className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
+        className={`min-h-[44px] rounded-full px-5 py-2 text-sm font-medium transition-colors ${
           viewMode === "pagination"
             ? "bg-gray-900 text-white"
             : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
@@ -19,7 +19,7 @@ export default function ViewToggle() {
       </button>
       <button
         onClick={() => setViewMode("infinite")}
-        className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
+        className={`min-h-[44px] rounded-full px-5 py-2 text-sm font-medium transition-colors ${
           viewMode === "infinite"
             ? "bg-gray-900 text-white"
             : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"

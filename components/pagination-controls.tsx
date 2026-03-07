@@ -23,9 +23,9 @@ export default function PaginationControls({ page, totalPages, totalCount, onPag
         <button
           onClick={() => onPageChange(page - 1)}
           disabled={page === 1}
-          className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-600
-                     disabled:opacity-40 disabled:cursor-not-allowed
-                     hover:text-gray-900 transition-colors"
+          className="flex min-h-[44px] items-center gap-1 px-3 py-2 text-sm text-gray-600
+                     transition-colors hover:text-gray-900
+                     disabled:cursor-not-allowed disabled:opacity-40"
         >
           ‹ Previous
         </button>
@@ -39,7 +39,7 @@ export default function PaginationControls({ page, totalPages, totalCount, onPag
             <button
               key={p}
               onClick={() => onPageChange(p as number)}
-              className={`h-8 w-8 rounded-lg text-sm font-medium transition-colors ${
+              className={`h-11 w-11 rounded-lg text-sm font-medium transition-colors sm:h-8 sm:w-8 ${
                 p === page
                   ? "bg-gray-900 text-white"
                   : "border border-gray-200 text-gray-700 hover:bg-gray-100"
@@ -53,9 +53,9 @@ export default function PaginationControls({ page, totalPages, totalCount, onPag
         <button
           onClick={() => onPageChange(page + 1)}
           disabled={page === totalPages}
-          className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-600
-                     disabled:opacity-40 disabled:cursor-not-allowed
-                     hover:text-gray-900 transition-colors"
+          className="flex min-h-[44px] items-center gap-1 px-3 py-2 text-sm text-gray-600
+                     transition-colors hover:text-gray-900
+                     disabled:cursor-not-allowed disabled:opacity-40"
         >
           Next ›
         </button>

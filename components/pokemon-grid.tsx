@@ -16,7 +16,7 @@ export default function PokemonGrid() {
     >
       <div className="mx-auto max-w-6xl">
         <header className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-900">⚡ Pokédex</h1>
+          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">⚡ Pokédex</h1>
           <p className="mt-1 text-sm text-gray-500">
             Discover and explore Pokémon with{" "}
             {viewMode === "pagination" ? "page controls" : "infinite scroll"}

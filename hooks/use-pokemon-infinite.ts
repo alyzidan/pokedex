@@ -1,6 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchPokemonInfinite } from "@/lib/api";
-import { PAGE_SIZE } from "@/lib/constants";
 
 export function usePokemonInfinite() {
   return useInfiniteQuery({

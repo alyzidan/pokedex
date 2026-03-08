@@ -6,10 +6,10 @@ import CardSkeleton from "./skeleton/card-skeleton";
 import PaginationControls from "./pagination-controls";
 import ErrorFallback from "./error-fallback";
 import { getErrorMessage } from "@/lib/utils";
-import { useState } from "react";
+import { useUIStore } from "@/store/ui-store";
 
 export default function PaginatedView() {
-  const [page, setPage] = useState(1);
+  const { page, setPage } = useUIStore();
   const { data, isLoading, isError, error, refetch } = usePokemonList(page);
 
   if (isError) {

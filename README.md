@@ -2,6 +2,8 @@
 
 A Next.js 16 application that browses the PokéAPI with two list modes (pagination and infinite scroll) and a server-rendered detail route.
 
+**Live Demo:** https://pokedex-4gp9cx3mm-alyzidans-projects.vercel.app/
+
 ---
 
 ## Architectural Highlights

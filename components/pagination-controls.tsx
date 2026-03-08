@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+
 interface Props {
   page: number;
   totalPages: number;
@@ -15,7 +17,7 @@ export function getPageNumbers(current: number, total: number): (number | "...")
 }
 
 export default function PaginationControls({ page, totalPages, totalCount, onPageChange }: Props) {
-  const pages = getPageNumbers(page, totalPages);
+  const pages = useMemo(() => getPageNumbers(page, totalPages), [page, totalPages]);
 
   return (
     <div className="mt-8 flex flex-col items-center gap-3">

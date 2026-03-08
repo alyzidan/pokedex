@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { formatPokemonId } from "@/lib/utils";
@@ -10,7 +11,7 @@ interface Props {
   spriteUrl: string;
 }
 
-export default function PokemonCard({ id, name, spriteUrl }: Props) {
+function PokemonCard({ id, name, spriteUrl }: Props) {
   return (
     <Link
       href={`/pokemon/${id}`}
@@ -34,3 +35,5 @@ export default function PokemonCard({ id, name, spriteUrl }: Props) {
     </Link>
   );
 }
+
+export default React.memo(PokemonCard);

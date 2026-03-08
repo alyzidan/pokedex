@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { usePokemonInfinite } from "@/hooks/use-pokemon-infinite";
 import PokemonCard from "./pokemon-card";
 import CardSkeleton from "./skeleton/card-skeleton";
@@ -29,7 +30,10 @@ export default function InfiniteView() {
     );
   }
 
-  const allPokemon = data?.pages.flatMap((page) => page.pokemon) ?? [];
+  const allPokemon = useMemo(
+    () => data?.pages.flatMap((page) => page.pokemon) ?? [],
+    [data]
+  );
   const totalLoaded = allPokemon.length;
 
   return (

@@ -1,3 +1,4 @@
+import React from "react";
 import type { PokemonTypeName } from "@/lib/types";
 
 const TYPE_COLORS: Record<PokemonTypeName, string> = {
@@ -25,14 +26,16 @@ interface Props {
   type: string;
 }
 
-export default function TypeBadge({ type }: Props) {
+function TypeBadge({ type }: Props) {
   return (
     <span
       className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${
-        TYPE_COLORS[type] ?? "bg-gray-300 text-gray-800"
+        TYPE_COLORS[type as PokemonTypeName] ?? "bg-gray-300 text-gray-800"
       }`}
     >
       {type}
     </span>
   );
 }
+
+export default React.memo(TypeBadge);

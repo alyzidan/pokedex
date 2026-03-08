@@ -1,9 +1,11 @@
+import React from "react";
+
 interface Props {
   label: string;
   value: number;
 }
 
-export default function StatBar({ label, value }: Props) {
+function StatBar({ label, value }: Props) {
   return (
     <div>
       <div className="flex items-center justify-between text-sm">
@@ -19,3 +21,5 @@ export default function StatBar({ label, value }: Props) {
     </div>
   );
 }
+
+export default React.memo(StatBar);

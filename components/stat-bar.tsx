@@ -1,4 +1,5 @@
 import React from "react";
+import { MAX_BASE_STAT } from "@/lib/constants";
 
 interface Props {
   label: string;
@@ -15,7 +16,7 @@ function StatBar({ label, value }: Props) {
       <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-gray-200">
         <div
           className="h-full rounded-full bg-gray-900 transition-all duration-500"
-          style={{ width: `${Math.min((value / 255) * 100, 100)}%` }}
+          style={{ width: `${Math.min((value / MAX_BASE_STAT) * 100, 100)}%` }}
         />
       </div>
     </div>

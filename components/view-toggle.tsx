@@ -2,6 +2,9 @@
 
 import { useUIStore } from "@/store/ui-store";
 
+const ACTIVE_CLASSES = "bg-gray-900 text-white";
+const INACTIVE_CLASSES = "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50";
+
 export default function ViewToggle() {
   const { viewMode, setViewMode } = useUIStore();
 
@@ -10,9 +13,7 @@ export default function ViewToggle() {
       <button
         onClick={() => setViewMode("pagination")}
         className={`min-h-[44px] rounded px-5 py-1 text-sm font-medium transition-colors ${
-          viewMode === "pagination"
-            ? "bg-gray-900 text-white"
-            : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+          viewMode === "pagination" ? ACTIVE_CLASSES : INACTIVE_CLASSES
         }`}
       >
         Page Controls
@@ -20,9 +21,7 @@ export default function ViewToggle() {
       <button
         onClick={() => setViewMode("infinite")}
         className={`min-h-[44px] rounded px-5 py-1 text-sm font-medium transition-colors ${
-          viewMode === "infinite"
-            ? "bg-gray-900 text-white"
-            : "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+          viewMode === "infinite" ? ACTIVE_CLASSES : INACTIVE_CLASSES
         }`}
       >
         Infinite Scroll

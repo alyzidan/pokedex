@@ -1,10 +1,11 @@
 import Image from "next/image";
-import type { PokemonDetail } from "@/lib/types";
+import type { PokemonDetail, StatName } from "@/lib/types";
 import TypeBadge from "./type-badge";
 import StatBar from "./stat-bar";
+import { formatPokemonId } from "@/lib/utils";
 
 function formatStatName(name: string): string {
-  const map: Record<string, string> = {
+  const map: Record<StatName, string> = {
     hp: "HP",
     attack: "Attack",
     defense: "Defense",
@@ -12,7 +13,7 @@ function formatStatName(name: string): string {
     "special-defense": "Sp. Defense",
     speed: "Speed",
   };
-  return map[name] ?? name;
+  return map[name as StatName] ?? name;
 }
 
 interface Props {
@@ -24,7 +25,7 @@ export default function PokemonDetailCard({ pokemon }: Props) {
     <>
       <div className="bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-6 text-center text-white">
         <h1 className="text-2xl font-bold capitalize">⚡ {pokemon.name}</h1>
-        <p className="text-sm text-white/80">#{String(pokemon.id).padStart(3, "0")}</p>
+        <p className="text-sm text-white/80">#{formatPokemonId(pokemon.id)}</p>
       </div>
 
       <div className="grid gap-8 p-8 md:grid-cols-2">

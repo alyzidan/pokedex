@@ -21,3 +21,43 @@ export interface PokemonDetail {
   types: { type: { name: string } }[];
   abilities: { ability: { name: string }; is_hidden: boolean }[];
 }
+
+export interface PokeApiResultItem {
+  name: string;
+  url: string;
+}
+
+export interface PokeApiListResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: PokeApiResultItem[];
+}
+
+export type StatName =
+  | "hp"
+  | "attack"
+  | "defense"
+  | "special-attack"
+  | "special-defense"
+  | "speed";
+
+export type PokemonTypeName =
+  | "normal"
+  | "fire"
+  | "water"
+  | "electric"
+  | "grass"
+  | "ice"
+  | "fighting"
+  | "poison"
+  | "ground"
+  | "flying"
+  | "psychic"
+  | "bug"
+  | "rock"
+  | "ghost"
+  | "dragon"
+  | "dark"
+  | "steel"
+  | "fairy";

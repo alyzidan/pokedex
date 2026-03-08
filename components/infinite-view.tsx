@@ -5,6 +5,8 @@ import PokemonCard from "./pokemon-card";
 import CardSkeleton from "./skeleton/card-skeleton";
 import LoadMoreButton from "./load-more-button";
 import ErrorFallback from "./error-fallback";
+import Spinner from "./spinner";
+import { getErrorMessage } from "@/lib/utils";
 
 export default function InfiniteView() {
   const {
@@ -21,7 +23,7 @@ export default function InfiniteView() {
   if (isError) {
     return (
       <ErrorFallback
-        message={error instanceof Error ? error.message : "Failed to load Pokémon"}
+        message={getErrorMessage(error)}
         onRetry={() => refetch()}
       />
     );
@@ -41,15 +43,7 @@ export default function InfiniteView() {
       <div className="mt-8 flex flex-col items-center gap-3">
         {isFetchingNextPage && (
           <div className="flex items-center gap-2 text-sm text-gray-500">
-            <svg
-              className="h-4 w-4 animate-spin"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-            </svg>
+            <Spinner />
             Loading more Pokémon...
           </div>
         )}

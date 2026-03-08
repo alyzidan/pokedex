@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { formatPokemonId } from "@/lib/utils";
 
 interface Props {
   id: number;
@@ -28,7 +29,7 @@ export default function PokemonCard({ id, name, spriteUrl }: Props) {
       </div>
       <div className="px-4 py-3 text-center">
         <h3 className="text-sm font-semibold capitalize text-gray-900">{name}</h3>
-        <p className="text-xs text-gray-400">#{String(id).padStart(3, "0")}</p>
+        <p className="text-xs text-gray-400">#{formatPokemonId(id)}</p>
       </div>
     </Link>
   );

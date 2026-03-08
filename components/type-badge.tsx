@@ -1,4 +1,6 @@
-const TYPE_COLORS: Record<string, string> = {
+import type { PokemonTypeName } from "@/lib/types";
+
+const TYPE_COLORS: Record<PokemonTypeName, string> = {
   normal:   "bg-gray-400 text-white",
   fire:     "bg-red-500 text-white",
   water:    "bg-blue-500 text-white",

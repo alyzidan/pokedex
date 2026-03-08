@@ -5,6 +5,7 @@ import PokemonCard from "./pokemon-card";
 import CardSkeleton from "./skeleton/card-skeleton";
 import PaginationControls from "./pagination-controls";
 import ErrorFallback from "./error-fallback";
+import { getErrorMessage } from "@/lib/utils";
 import { useState } from "react";
 
 export default function PaginatedView() {
@@ -14,7 +15,7 @@ export default function PaginatedView() {
   if (isError) {
     return (
       <ErrorFallback
-        message={error instanceof Error ? error.message : "Failed to load Pokémon"}
+        message={getErrorMessage(error)}
         onRetry={() => refetch()}
       />
     );

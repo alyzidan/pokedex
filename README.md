@@ -2,7 +2,7 @@
 
 A Next.js 16 application that browses the PokéAPI with two list modes (pagination and infinite scroll) and a server-rendered detail route.
 
-**Live Demo:** https://pokedex-4gp9cx3mm-alyzidans-projects.vercel.app/
+**Live Demo:** https://pokedex-q4lqt3tyl-alyzidans-projects.vercel.app/
 
 ---
 
@@ -16,10 +16,10 @@ The detail route (`/pokemon/[id]`) is a full RSC — the page shell is server-re
 - Infinite list: `useInfiniteQuery` with key `["pokemon", "infinite"]`
 - Detail: `useQuery` with key `["pokemon", "detail", id]`
 
-Switching between views unmounts the inactive component; React Query's cache survives the unmount, so returning to a previously visited view is instant with no re-fetch.
+Switching between views unmounts the inactive component; React Query's cache survives the unmount, so returning to a previously visited view is instant with no re-fetch. The paginated query uses `keepPreviousData` so the current page remains visible while the next page loads in the background.
 
 **Zustand for UI state only**
-A single store holds `viewMode: "pagination" | "infinite"`. No server data lives in Zustand. The separation between server state (React Query) and UI state (Zustand) is intentional and strict.
+A single store holds `viewMode: "pagination" | "infinite"` and the current `page` number. No server data lives in Zustand. The separation between server state (React Query) and UI state (Zustand) is intentional and strict. Storing `page` in the store means navigating to a detail page and back always restores the correct page.
 
 **Sprite URL construction**
 The PokéAPI list endpoint returns only `name` and `url` — no sprites. Rather than firing 20 individual detail requests per page, the sprite URL is derived from the Pokémon ID extracted from the `url` field:
@@ -34,7 +34,7 @@ All styling uses Tailwind utility classes. No external component library. Custom
 
 ## Features
 
-- **Paginated view** — 20 Pokémon per page, ellipsis pagination controls, page counter footer, background switches to blue-50
+- **Paginated view** — 20 Pokémon per page, ellipsis pagination controls, page counter footer, background switches to blue-50. Current page persists when navigating to a detail page and back.
 - **Infinite scroll view** — Load More button appends the next 20, spinner during fetch, running count footer, background switches to green-50
 - **Detail page** — gradient header, official artwork sprite, base stats with proportional fill bars, type badges with per-type colour mapping, abilities (hidden ability labelled), height/weight in metric units, base experience
 - **Error handling** — route-level error boundaries (`app/error.tsx`, `app/pokemon/[id]/error.tsx`) plus inline React Query error states with retry callbacks in both list views
@@ -94,14 +94,19 @@ components/
 ├── infinite-view.tsx           # mounts usePokemonInfinite
 ├── pokemon-card.tsx            # card + next/image sprite
 ├── pokemon-detail-view.tsx     # client wrapper around detail data fetch
-├── pokemon-detail-card.tsx     # pure presentational detail layout
+├── pokemon-detail-card.tsx     # layout shell composing the three detail sub-components
 ├── pagination-controls.tsx     # prev/next + ellipsis page numbers
 ├── view-toggle.tsx             # reads/writes Zustand viewMode
 ├── load-more-button.tsx        # infinite scroll trigger
 ├── stat-bar.tsx                # proportional stat fill bar
 ├── type-badge.tsx              # per-type colour pill
 ├── back-link.tsx               # ← Back to List
+├── spinner.tsx                 # animated loading spinner
 ├── error-fallback.tsx          # shared error UI with retry
+├── detail/
+│   ├── pokemon-detail-header.tsx   # gradient banner with name and ID
+│   ├── pokemon-profile-column.tsx  # image, type badges, height/weight
+│   └── pokemon-stats-column.tsx    # base stats, abilities, base experience
 └── skeleton/
     ├── card-skeleton.tsx
     └── detail-skeleton.tsx
@@ -113,18 +118,21 @@ hooks/
 
 lib/
 ├── api.ts                      # fetch helpers + response mappers
-├── types.ts                    # shared TypeScript interfaces
-└── constants.ts                # PAGE_SIZE, API_BASE
+├── types.ts                    # shared TypeScript interfaces and union types
+├── utils.ts                    # getErrorMessage, formatPokemonId, formatStatName
+└── constants.ts                # PAGE_SIZE, API_BASE, MAX_BASE_STAT
 
 store/
-└── ui-store.ts                 # Zustand — viewMode only
+└── ui-store.ts                 # Zustand — viewMode + current page
 
 providers/
 └── query-provider.tsx          # QueryClientProvider client boundary
 
 __tests__/
-├── components/                 # pokemon-card, pagination-controls, view-toggle, error-fallback
-├── hooks/                      # use-pokemon-list
+├── components/                 # pokemon-card, pagination-controls, view-toggle,
+│                               # error-fallback, paginated-view, infinite-view,
+│                               # pokemon-detail-card
+├── hooks/                      # use-pokemon-list, use-pokemon-infinite
 └── lib/                        # api
 ```
 
@@ -136,4 +144,4 @@ __tests__/
 pnpm test
 ```
 
-42 tests across 6 files covering: API URL construction, `totalPages` calculation, `extractIdFromUrl` parsing, `getPageNumbers` ellipsis logic, component rendering, store mutations, and error/retry behaviour.
+60 tests across 10 files covering: API URL construction, response mapping, `totalPages` calculation, `extractIdFromUrl` parsing, `getPageNumbers` ellipsis logic, component rendering, view loading/data/error states, detail card layout, `usePokemonInfinite` pagination params, store mutations, and error/retry behaviour.

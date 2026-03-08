@@ -14,7 +14,7 @@ export default function PokemonCard({ id, name, spriteUrl }: Props) {
     <Link
       href={`/pokemon/${id}`}
       className="group block overflow-hidden rounded-2xl bg-white shadow
-                 transition-all duration-200 hover:shadow-lg hover:-translate-y-1"
+                 transition-all duration-200 hover:shadow-lg hover:-translate-y-1 p-6"
     >
       <div className="flex items-center justify-center bg-gray-100 p-6">
         <Image
